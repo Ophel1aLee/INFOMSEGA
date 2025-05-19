@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a2e0c7aebe8d44dcc93462085230d42a
+  m_SerializeEntries:
+  - m_GUID: aebca05c20f114213b6d188f97afcb34
+    m_Address: Assets/ScriptableObjects/BlueDragon.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Animals
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c85e6fc47bf6241aa9683a92704721f7
+    m_Address: HabitatChoosing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b025afb024764be792fa7855bcbe7a9
+    m_Address: ChallengeAccepting
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4fc92469442824cd58a96d20ac398fb5
+    m_Address: AnimalFinding
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38dfc33537dfc433da88ba702e679708
+    m_Address: AnimalFeeding
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3f192b2f60917481193f46abdc9d9067, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0c2c16bb977674c5199d290449159786, type: 2}
+    - {fileID: 11400000, guid: 81699a7c207954b2891331a5d3c01a6a, type: 2}
