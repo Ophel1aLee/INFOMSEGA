@@ -50,6 +50,14 @@ public class MainManager : Singleton<MainManager>
             Debug.Log("No Game Save Found");
         }
 
+        var resetButton = m_mainMenu.transform.Find("Restart").GetComponent<UnityEngine.UI.Button>();
+        if (resetButton != null)
+        {
+            resetButton.onClick.AddListener(ResetProgress);
+            resetButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Reset!";
+            Debug.Log("Reset");
+        }
+
         var collectionButton = m_mainMenu.transform.Find("Collection").GetComponent<UnityEngine.UI.Button>();
         var quitButton = m_mainMenu.transform.Find("Quit").GetComponent<UnityEngine.UI.Button>();
         quitButton.onClick.AddListener(Quit);
@@ -137,6 +145,20 @@ public class MainManager : Singleton<MainManager>
                 Debug.LogError($"Failed to load Scene {sceneName}");
             }
         };
+    }
+
+    private void ResetProgress()
+    {
+        var saveMgr = SaveManager.Instance;
+        if (saveMgr.DeleteSave(GameSavePath))
+        {
+            Debug.Log("clear progress");
+            var playButton = m_mainMenu.transform.Find("Play").GetComponent<UnityEngine.UI.Button>();
+            playButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "New Game";
+            playButton.onClick.RemoveAllListeners();
+            playButton.onClick.AddListener(Play);
+            saveMgr.CurrentSaveData = ScriptableObject.CreateInstance<SaveData>();
+        }
     }
 
     public void ViewCollection()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimalFeeding : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class AnimalFeeding : MonoBehaviour
     private List<DietEnum> m_diets = new List<DietEnum>();
     private DietEnum m_correctDiet;
     private int m_currentAnimalID;
+    private Button hintButton;
+    private GameObject hint;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,16 @@ public class AnimalFeeding : MonoBehaviour
         {
             Debug.LogError("UI not found.");
             return;
+        }
+
+        hint = m_uiObject.transform.Find("Hint")?.gameObject;
+        hintButton = hint.GetComponentInChildren<Button>();
+        if (hintButton != null)
+        {
+            hintButton.onClick.AddListener(() =>
+            {
+                hint.SetActive(false);
+            });
         }
 
         // Attach the button click events
@@ -76,6 +89,7 @@ public class AnimalFeeding : MonoBehaviour
         else
         {
             // Incorrect diet chosen
+            hint.SetActive(true);
             Debug.Log("Incorrect diet chosen.");
             // TODO: Show feedback to the player
         }

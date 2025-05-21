@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class HabitatChoosing : MonoBehaviour
 {
     private GameObject m_uiObject;
     private List<HabitatEnum> m_habitats = new List<HabitatEnum>();
     private HabitatEnum m_correctHabitat;
+    private Button hintButton;
+    private GameObject hint;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,16 @@ public class HabitatChoosing : MonoBehaviour
         {
             Debug.LogError("UI not found.");
             return;
+        }
+
+        hint = m_uiObject.transform.Find("Hint")?.gameObject;
+        hintButton = hint.GetComponentInChildren<Button>();
+        if (hintButton != null)
+        {
+            hintButton.onClick.AddListener(() =>
+            {
+                hint.SetActive(false);
+            });
         }
 
         // Attach the button click events
@@ -73,6 +86,7 @@ public class HabitatChoosing : MonoBehaviour
         else
         {
             // Incorrect habitat chosen
+            hint.SetActive(true);
             Debug.Log("Incorrect habitat.");
             // TODO: Show feedback to the player
         }
