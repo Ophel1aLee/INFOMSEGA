@@ -34,7 +34,7 @@ public class HabitatChoosing : MonoBehaviour
         }
 
         // Attach the button click events
-        var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
+        var buttons = m_uiObject.GetComponentsInChildren<Button>();
         var habitatButtons = buttons.Where(b => b.name == "Habitat").ToArray();
         var save = SaveManager.Instance.CurrentSaveData;
         m_correctHabitat = MainManager.Instance.AnimalData[save.CurrentCollectingID].AnimalHabitat;

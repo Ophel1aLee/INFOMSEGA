@@ -35,7 +35,8 @@ public class AnimalFeeding : MonoBehaviour
         }
 
         // Attach the button click events
-        var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
+        var buttons = m_uiObject.GetComponentsInChildren<Button>();
+        var foodButtons = buttons.Where(b => b.name == "Food").ToArray();
         var save = SaveManager.Instance.CurrentSaveData;
         m_currentAnimalID = save.CurrentCollectingID;
         m_correctDiet = MainManager.Instance.AnimalData[save.CurrentCollectingID].AnimalDiet;
@@ -45,12 +46,12 @@ public class AnimalFeeding : MonoBehaviour
         }
         else
         {
-            GenerateDiets(buttons.Length);
+            GenerateDiets(foodButtons.Length);
         }
 
-        for (int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < foodButtons.Length; i++)
         {
-            var button = buttons[i];
+            var button = foodButtons[i];
             if (button.name == "Food")
             {
                 int index = i;
