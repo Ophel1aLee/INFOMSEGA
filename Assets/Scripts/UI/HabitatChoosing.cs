@@ -35,6 +35,7 @@ public class HabitatChoosing : MonoBehaviour
 
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
+        var habitatButtons = buttons.Where(b => b.name == "Habitat").ToArray();
         var save = SaveManager.Instance.CurrentSaveData;
         m_correctHabitat = MainManager.Instance.AnimalData[save.CurrentCollectingID].AnimalHabitat;
         if (save.CurrentStatus != null)
@@ -43,23 +44,21 @@ public class HabitatChoosing : MonoBehaviour
         }
         else
         {
-            GenerateHabitats(buttons.Length);
+            GenerateHabitats(habitatButtons.Length);
         }
 
-        for (int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < habitatButtons.Length; i++)
         {
-            var button = buttons[i];
-            if (button.name == "Habitat")
+            var button = habitatButtons[i];
+            int index = i;
+            button.onClick.AddListener(() => HabitatChoose(m_habitats[index]));
+            // Adjust the button text
+            var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            if (text != null)
             {
-                int index = i;
-                button.onClick.AddListener(() => HabitatChoose(m_habitats[index]));
-                // Adjust the button text
-                var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                if (text != null)
-                {
-                    text.text = Enum.GetName(typeof(HabitatEnum), m_habitats[index]);
-                }
+                text.text = Enum.GetName(typeof(HabitatEnum), m_habitats[index]);
             }
+
         }
 
         // TODO: Update the UI with the Habitat resources

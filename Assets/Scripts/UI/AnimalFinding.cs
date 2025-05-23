@@ -23,6 +23,7 @@ public class AnimalFinding : MonoBehaviour
 
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
+        var animalButtons = buttons.Where(b => b.name == "Animal").ToArray();
         var save = SaveManager.Instance.CurrentSaveData;
         var correctAnimal = MainManager.Instance.AnimalData[save.CurrentCollectingID];
         m_correctAnimalID = correctAnimal.AnimalID;
@@ -41,23 +42,19 @@ public class AnimalFinding : MonoBehaviour
         }
         else
         {
-            GenerateAnimals(buttons.Length);
+            GenerateAnimals(animalButtons.Length);
         }
 
-        for (int i = 0; i < buttons.Length; i++)
+        // 给每个 Animal 按钮绑定对应的 animalID，设置文字
+        for (int i = 0; i < animalButtons.Length; i++)
         {
-            var button = buttons[i];
-            if (button.name == "Animal")
-            {
-                int index = i;
-                button.onClick.AddListener(() => AnimalFind(m_animalIDs[index]));
-                // Adjust the button text
-                var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                if (text != null)
-                {
-                    text.text = m_animalDatas[m_animalIDs[index]].AnimalName;
-                }
-            }
+            var button = animalButtons[i];
+            int animalID = m_animalIDs[i];  // 局部变量，避免闭包问题
+            button.onClick.AddListener(() => AnimalFind(animalID));
+
+            var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            if (text != null)
+                text.text = m_animalDatas[animalID].AnimalName;
         }
 
         // TODO: Update the UI with the Animal resources
