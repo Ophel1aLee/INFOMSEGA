@@ -12,6 +12,7 @@ public class MainManager : Singleton<MainManager>
     public event OnSceneLoadDelegate OnSceneLoad;
 
     public string GameSavePath = "GameSave";
+    public List<float> GameDifficulties = new List<float> { 0.0f, 0.0f, 300.0f, 180.0f }; // in seconds
 
     private GameObject m_mainMenu;
     private List<AnimalData> m_animalDataList;
@@ -150,7 +151,7 @@ public class MainManager : Singleton<MainManager>
     private void ResetProgress()
     {
         var saveMgr = SaveManager.Instance;
-        if (saveMgr.DeleteSave(GameSavePath))
+        if (PlayerPrefs.HasKey(GameSavePath) && saveMgr.DeleteSave(GameSavePath))
         {
             Debug.Log("clear progress");
             var playButton = m_mainMenu.transform.Find("Play").GetComponent<UnityEngine.UI.Button>();
@@ -179,12 +180,15 @@ public class MainManager : Singleton<MainManager>
         // Load the current save data to the scene
     }
 
-    public void SaveCurrentSave(int animalID=0, ProgressEnum progress=0, List<int> currentStatus=null)
+    public void SaveCurrentSave(int animalID=0, DifficultyEnum difficulty=DifficultyEnum.Easy, float time=0.0f, ProgressEnum progress=0, List<int> currentStatus=null)
     {
         Debug.Log("Saving Current Save");
         var saveMgr = SaveManager.Instance;
         // Save the current save data to the game save fild
         saveMgr.CurrentSaveData.CurrentCollectingID = animalID > 0 ? animalID : saveMgr.CurrentSaveData.CurrentCollectingID;
+        saveMgr.CurrentSaveData.CurrentDifficulty = difficulty > 0 ? difficulty : saveMgr.CurrentSaveData.CurrentDifficulty;
+        saveMgr.CurrentSaveData.CurrentTime = saveMgr.CurrentSaveData.CurrentDifficulty > DifficultyEnum.Easy ?
+                                            time > 0 ? time : saveMgr.CurrentSaveData.CurrentTime : 0.0f;
         saveMgr.CurrentSaveData.Progress = progress > 0 ? progress : saveMgr.CurrentSaveData.Progress;
         saveMgr.CurrentSaveData.CurrentStatus = currentStatus;
         saveMgr.SaveSave(GameSavePath);
@@ -196,6 +200,26 @@ public class MainManager : Singleton<MainManager>
         var saveMgr = SaveManager.Instance;
 
         // Load the next level data
+        if (progress == ProgressEnum.Unknown)
+        {
+            Addressables.LoadSceneAsync("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (operation) =>
+            {
+                if (operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+                {
+                    Debug.Log("Main Menu Scene Loaded");
+                    OnSceneLoad?.Invoke();
+
+                    // Initial data
+                    saveMgr.CurrentSaveData.Progress = ProgressEnum.ChallengeAccepting;
+                }
+                else
+                {
+                    Debug.LogError("Failed to load Main Menu Scene");
+                }
+            };
+            return;
+        }
+
         var progressName = Enum.GetName(typeof(ProgressEnum), progress);
         var progressDataType = Type.GetType($"{progressName}Data");
         saveMgr.CurrentSaveData.Progress = progress;

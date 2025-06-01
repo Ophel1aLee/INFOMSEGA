@@ -14,6 +14,9 @@ public class AnimalFeeding : MonoBehaviour
     private Button hintButton;
     private GameObject hint;
 
+    private Timer m_timer;
+    private float m_timerTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +68,22 @@ public class AnimalFeeding : MonoBehaviour
             }
         }
 
+        // Start the timer
+        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy ? m_uiObject.GetComponentInChildren<Timer>() : null;
+        if (m_timer != null)
+        {
+            m_timer.OnTimerStop += (time) =>
+            {
+                Debug.Log($"Timer stopped at {time} seconds.");
+                m_timerTime = time;
+            };
+            m_timer.StartTimer(save.CurrentTime);
+        }
+        else
+        {
+            Debug.Log("Timer not found in the UI.");
+        }
+        
         // TODO: Update the UI with the Food resources
     }
 
@@ -81,10 +100,13 @@ public class AnimalFeeding : MonoBehaviour
         if (diet == m_correctDiet)
         {
             // Correct diet chosen
+            // Stop the timer
+            m_timer?.StopTimer();
             SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
+            SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
             // Remove the status list
-            MainManager.Instance.SaveCurrentSave(-1, ProgressEnum.AnimalFeeding);
-            MainManager.Instance.NextLevel(ProgressEnum.ChallengeAccepting);
+            MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
+            MainManager.Instance.NextLevel(ProgressEnum.Unknown);
             // TODO: Show feedback to the player
         }
         else
@@ -121,6 +143,6 @@ public class AnimalFeeding : MonoBehaviour
         }
 
         // Save the current foods
-        MainManager.Instance.SaveCurrentSave(-1, ProgressEnum.AnimalFeeding, new List<int>(m_diets.Select(d => (int)d)));
+        MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.AnimalFeeding, new List<int>(m_diets.Select(d => (int)d)));
     }
 }

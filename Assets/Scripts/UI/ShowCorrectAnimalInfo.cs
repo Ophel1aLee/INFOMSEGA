@@ -10,6 +10,8 @@ public class ShowCorrectAnimalInfo : MonoBehaviour
     private AnimalData _correctAnimal;
     private bool _isWindowVisible = false;
 
+    private DifficultyEnum _currentDifficulty;
+
     void Start()
     {
         // 1. 取存档里的当前 ID
@@ -26,6 +28,16 @@ public class ShowCorrectAnimalInfo : MonoBehaviour
 
         // 3. 绑定按钮
         showInfoButton.onClick.AddListener(OnShowInfo);
+
+        // 4. 获取当前难度
+        _currentDifficulty = saveData.CurrentDifficulty;
+        if (_currentDifficulty > DifficultyEnum.Easy)
+        {
+            // 如果难度大于 Easy，则禁用按钮
+            // showInfoButton.interactable = false;
+            showInfoButton.gameObject.SetActive(false);
+            Debug.Log("Hide \"Show Info\" button for difficulty: " + _currentDifficulty);
+        }
     }
 
     private void OnShowInfo()

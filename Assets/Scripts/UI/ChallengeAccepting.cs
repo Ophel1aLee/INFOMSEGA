@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class ChallengeAccepting : MonoBehaviour
 {
@@ -30,7 +32,7 @@ public class ChallengeAccepting : MonoBehaviour
         InitChallenge();
 
         // Attach the button click events
-        var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
+        var buttons = m_uiObject.GetComponentsInChildren<Button>();
         foreach (var button in buttons)
         {
             if (button.name == "Accept")
@@ -71,7 +73,7 @@ public class ChallengeAccepting : MonoBehaviour
     {
         // Logic to accept the challenge
         Debug.Log("Challenge Accepted");
-        
+        MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.HabitatChoosing);
         MainManager.Instance.NextLevel(ProgressEnum.HabitatChoosing);
     }
 
@@ -116,9 +118,24 @@ public class ChallengeAccepting : MonoBehaviour
     {
         // Logic to show the challenge
         Debug.Log("Challenge Initialized");
-        var randomIndex = UnityEngine.Random.Range(0, MainManager.Instance.AnimalDataList.Count);
-        m_currentAnimalData = MainManager.Instance.AnimalDataList[randomIndex];
-        MainManager.Instance.SaveCurrentSave(m_currentAnimalData.AnimalID, ProgressEnum.ChallengeAccepting);
+
+        // remove hard difficulty animals
+        var save = SaveManager.Instance.CurrentSaveData;
+        var availableAnimals = MainManager.Instance.AnimalDataList.Where(a => save.GetAnimalDifficulty(a.AnimalID) != DifficultyEnum.Hard).ToList();
+        bool isAllFinished = availableAnimals.Count == 0;
+        var count = isAllFinished ? MainManager.Instance.AnimalDataList.Count : availableAnimals.Count;
+        var randomIndex = UnityEngine.Random.Range(0, count);
+        m_currentAnimalData = isAllFinished ? MainManager.Instance.AnimalDataList[randomIndex] : availableAnimals[randomIndex];
+
+        var currentDifficulty = SaveManager.Instance.CurrentSaveData.GetAnimalDifficulty(m_currentAnimalData.AnimalID);
+        var difficulty = currentDifficulty == DifficultyEnum.Unknown ? DifficultyEnum.Easy :
+                        currentDifficulty == DifficultyEnum.Hard ? currentDifficulty : currentDifficulty + 1;
+
+        // timer time
+        var startTime = MainManager.Instance.GameDifficulties[(int)difficulty];
+        
+        Debug.Log($"Current Animal: {m_currentAnimalData.AnimalName}, Difficulty: {difficulty}");
+        MainManager.Instance.SaveCurrentSave(m_currentAnimalData.AnimalID, difficulty, startTime, ProgressEnum.ChallengeAccepting);
 
         // TODO: Update the UI with the challenge details
     }

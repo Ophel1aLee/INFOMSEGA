@@ -11,6 +11,9 @@ public class AnimalFinding : MonoBehaviour
     private int m_correctAnimalID;
     private HabitatEnum m_currentHabitat;
 
+    private Timer m_timer;
+    private float m_timerTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +48,11 @@ public class AnimalFinding : MonoBehaviour
             GenerateAnimals(animalButtons.Length);
         }
 
-        // ¸øÃ¿¸ö Animal °´Å¥°ó¶¨¶ÔÓ¦µÄ animalID£¬ÉèÖÃÎÄ×Ö
+        // ï¿½ï¿½Ã¿ï¿½ï¿½ Animal ï¿½ï¿½Å¥ï¿½ó¶¨¶ï¿½Ó¦ï¿½ï¿½ animalIDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < animalButtons.Length; i++)
         {
             var button = animalButtons[i];
-            int animalID = m_animalIDs[i];  // ¾Ö²¿±äÁ¿£¬±ÜÃâ±Õ°üÎÊÌâ
+            int animalID = m_animalIDs[i];  // ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ°ï¿½ï¿½ï¿½ï¿½ï¿½
             button.onClick.AddListener(() => AnimalFind(animalID));
 
             var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
@@ -57,6 +60,22 @@ public class AnimalFinding : MonoBehaviour
                 text.text = m_animalDatas[animalID].AnimalName;
         }
 
+        // Start the timer
+        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy ? m_uiObject.GetComponentInChildren<Timer>() : null;
+        if (m_timer != null)
+        {
+            m_timer.OnTimerStop += (time) =>
+            {
+                Debug.Log($"Timer stopped at {time} seconds.");
+                m_timerTime = time;
+            };
+            m_timer.StartTimer(save.CurrentTime);
+        }
+        else
+        {
+            Debug.Log("Timer not found in the UI.");
+        }
+        
         // TODO: Update the UI with the Animal resources
     }
 
@@ -73,8 +92,10 @@ public class AnimalFinding : MonoBehaviour
         if (animalID == m_correctAnimalID)
         {
             // Correct animal found
+            // Stop the timer
+            m_timer?.StopTimer();
             // Remove the status list
-            MainManager.Instance.SaveCurrentSave(-1, ProgressEnum.AnimalFinding);
+            MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.AnimalFeeding);
             MainManager.Instance.NextLevel(ProgressEnum.AnimalFeeding);
             // TODO: Show feedback to the player
         }
@@ -111,6 +132,6 @@ public class AnimalFinding : MonoBehaviour
         }
 
         // Save the current annimals
-        MainManager.Instance.SaveCurrentSave(m_correctAnimalID, ProgressEnum.AnimalFinding, new List<int>(m_animalIDs));
+        MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.AnimalFinding, new List<int>(m_animalIDs));
     }
 }

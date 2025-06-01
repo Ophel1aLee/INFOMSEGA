@@ -13,6 +13,9 @@ public class HabitatChoosing : MonoBehaviour
     private Button hintButton;
     private GameObject hint;
 
+    private Timer m_timer;
+    private float m_timerTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +64,22 @@ public class HabitatChoosing : MonoBehaviour
 
         }
 
+        // Start the timer
+        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy ? m_uiObject.GetComponentInChildren<Timer>() : null;
+        if (m_timer != null)
+        {
+            m_timer.OnTimerStop += (time) =>
+            {
+                Debug.Log($"Timer stopped at {time} seconds.");
+                m_timerTime = time;
+            };
+            m_timer.StartTimer(save.CurrentTime);
+        }
+        else
+        {
+            Debug.Log("Timer not found in the UI.");
+        }
+        
         // TODO: Update the UI with the Habitat resources
     }
 
@@ -77,8 +96,10 @@ public class HabitatChoosing : MonoBehaviour
         if (habitat == m_correctHabitat)
         {
             // Correct habitat chosen
+            // Stop the timer
+            m_timer?.StopTimer();
             // Remove the status list
-            MainManager.Instance.SaveCurrentSave(-1, ProgressEnum.HabitatChoosing);
+            MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.AnimalFinding);
             MainManager.Instance.NextLevel(ProgressEnum.AnimalFinding);
             // TODO: Show feedback to the player
         }
@@ -116,6 +137,6 @@ public class HabitatChoosing : MonoBehaviour
         }
 
         // Save the current habitats
-        MainManager.Instance.SaveCurrentSave(-1, ProgressEnum.HabitatChoosing, new List<int>(m_habitats.Select(h => (int)h)));
+        MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.HabitatChoosing, new List<int>(m_habitats.Select(h => (int)h)));
     }
 }
