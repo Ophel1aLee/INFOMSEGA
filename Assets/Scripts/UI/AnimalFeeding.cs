@@ -28,7 +28,7 @@ public class AnimalFeeding : MonoBehaviour
         }
 
         hint = m_uiObject.transform.Find("Hint")?.gameObject;
-        hintButton = hint.GetComponentInChildren<Button>();
+        hintButton = hint?.GetComponentInChildren<Button>();
         if (hintButton != null)
         {
             hintButton.onClick.AddListener(() =>
@@ -45,7 +45,9 @@ public class AnimalFeeding : MonoBehaviour
         m_correctDiet = MainManager.Instance.AnimalData[save.CurrentCollectingID].AnimalDiet;
         if (save.CurrentStatus != null)
         {
-            m_diets = save.CurrentStatus.Select((i) => (DietEnum)Enum.ToObject(typeof(DietEnum), i)).ToList();
+            m_diets = save.CurrentStatus
+                       .Select(i => (DietEnum)Enum.ToObject(typeof(DietEnum), i))
+                       .ToList();
         }
         else
         {
@@ -58,18 +60,41 @@ public class AnimalFeeding : MonoBehaviour
             if (button.name == "Food")
             {
                 int index = i;
-                button.onClick.AddListener(() => FoodChoose(m_diets[index]));
-                // Adjust the button text
+                DietEnum thisDiet = m_diets[index];
+
+                // ① 给 Button 本身添加可拖拽组件，并赋上 dietType
+                var draggableOnBtn = button.gameObject.AddComponent<DraggableFood>();
+                draggableOnBtn.dietType = thisDiet;
+
+                // ② “Food” 按钮的父物体下有一个名为 "Image" 的兄弟节点
+                //    直接在父物体里查找名为 "Image" 的子 GameObject
+                var parent = button.transform.parent;
+                if (parent != null)
+                {
+                    var siblingImageGO = parent.Find("Image")?.gameObject;
+                    if (siblingImageGO != null)
+                    {
+                        var draggableOnSibling = siblingImageGO.AddComponent<DraggableFood>();
+                        draggableOnSibling.dietType = thisDiet;
+                    }
+                }
+
+                // ③ 原有点击判定（点按钮也能喂食）
+                button.onClick.AddListener(() => FoodChoose(thisDiet));
+
+                // ④ 调整按钮文本
                 var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
                 if (text != null)
                 {
-                    text.text = Enum.GetName(typeof(DietEnum), m_diets[index]);
+                    text.text = Enum.GetName(typeof(DietEnum), thisDiet);
                 }
             }
         }
 
         // Start the timer
-        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy ? m_uiObject.GetComponentInChildren<Timer>() : null;
+        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy
+                  ? m_uiObject.GetComponentInChildren<Timer>()
+                  : null;
         if (m_timer != null)
         {
             m_timer.OnTimerStop += (time) =>
@@ -83,7 +108,7 @@ public class AnimalFeeding : MonoBehaviour
         {
             Debug.Log("Timer not found in the UI.");
         }
-        
+
         // TODO: Update the UI with the Food resources
     }
 
@@ -93,7 +118,7 @@ public class AnimalFeeding : MonoBehaviour
 
     }
 
-    private void FoodChoose(DietEnum diet)
+    public void FoodChoose(DietEnum diet)
     {
         // Logic to handle food choice
         Debug.Log($"Diet {diet} chosen.");
@@ -126,8 +151,8 @@ public class AnimalFeeding : MonoBehaviour
 
         // Randomly generate diets
         var dietPool = ((IEnumerable<DietEnum>)Enum.GetValues(typeof(DietEnum)))
-            .Where(d => d != DietEnum.Unknown && d != m_correctDiet)
-            .ToList();
+                       .Where(d => d != DietEnum.Unknown && d != m_correctDiet)
+                       .ToList();
         for (int i = 0; i < count - 1; i++)
         {
             var randomIndex = UnityEngine.Random.Range(0, dietPool.Count);
@@ -143,6 +168,12 @@ public class AnimalFeeding : MonoBehaviour
         }
 
         // Save the current foods
-        MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.AnimalFeeding, new List<int>(m_diets.Select(d => (int)d)));
+        MainManager.Instance.SaveCurrentSave(
+            -1,
+            0,
+            0,
+            ProgressEnum.AnimalFeeding,
+            new List<int>(m_diets.Select(d => (int)d))
+        );
     }
 }
