@@ -17,6 +17,7 @@ public class ChallengeAccepting : MonoBehaviour
     private AnimalData animalInf;
     private GameObject next;
     private Button nextInf;
+    public GameObject diffChoose;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,25 @@ public class ChallengeAccepting : MonoBehaviour
         {
             nextInf.onClick.AddListener(IntroduceFood);
         }
+
+        foreach (var button in buttons)
+        {
+            if (button.name == "Easy")
+            {
+                // Add the button click event
+                button.onClick.AddListener(Easymode);
+            }
+            if (button.name == "Normal")
+            {
+                // Add the button click event
+                button.onClick.AddListener(Normalmode);
+            }
+            if (button.name == "Hard")
+            {
+                // Add the button click event
+                button.onClick.AddListener(Hardmode);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -75,6 +95,24 @@ public class ChallengeAccepting : MonoBehaviour
         Debug.Log("Challenge Accepted");
         MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.HabitatChoosing);
         MainManager.Instance.NextLevel(ProgressEnum.HabitatChoosing);
+    }
+
+    private void Easymode()
+    {
+        diffChoose.SetActive(false);
+        SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(1);
+    }
+
+    private void Normalmode()
+    {
+        diffChoose.SetActive(false);
+        SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(2);
+    }
+
+    private void Hardmode()
+    {
+        diffChoose.SetActive(false);
+        SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(3);
     }
 
     private void IntroducePlace()
