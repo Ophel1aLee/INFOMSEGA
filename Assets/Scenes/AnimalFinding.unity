@@ -372,12 +372,12 @@ GameObject:
   - component: {fileID: 145940806}
   - component: {fileID: 145940807}
   m_Layer: 5
-  m_Name: savanna
+  m_Name: Savanna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &145940806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1523,7 +1523,7 @@ GameObject:
   - component: {fileID: 1392455589}
   - component: {fileID: 1392455588}
   m_Layer: 5
-  m_Name: Okapi
+  m_Name: GreatKudu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1545,8 +1545,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 690.40894, y: -172.60596}
-  m_SizeDelta: {x: 198.597, y: 202.9039}
+  m_AnchoredPosition: {x: 709, y: -168}
+  m_SizeDelta: {x: 187.3966, y: 212.052}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1392455588
 MonoBehaviour:
@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d7f1ce313c63a24c946b8bda7708b95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9bcba1a8325c0145aa29ae330453e74, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2014,7 +2014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1572399489
 RectTransform:
   m_ObjectHideFlags: 0

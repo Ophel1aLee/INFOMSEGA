@@ -118,8 +118,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 00:00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -197,6 +197,20 @@ PrefabInstance:
       propertyPath: m_text
       value: It seems you run out of time, let's start the challenge again!
       objectReference: {fileID: 0}
+    - target: {fileID: 1043959562947995766, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -247
+      objectReference: {fileID: 0}
+    - target: {fileID: 1043959562947995766, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090122718723664297, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
+      propertyPath: m_text
+      value: 'It seems you run out of time. Let''s start the challenge again!
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 5746388992712523713, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_Name
       value: Hint
@@ -204,6 +218,14 @@ PrefabInstance:
     - target: {fileID: 5746388992712523713, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025945860451548877, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025945860451548877, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7520070499811163080, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_Pivot.x
@@ -235,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7520070499811163080, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 310.9509
       objectReference: {fileID: 0}
     - target: {fileID: 7520070499811163080, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_LocalPosition.x
