@@ -48,39 +48,44 @@ public class ChallengeAccepting : MonoBehaviour
         MainManager.Instance.AnimalData.TryGetValue(id, out animalInf);
 
         director = m_uiObject.transform.Find("Director")?.gameObject;
+        Debug.Log($"找到 Director? {(director != null)}");
         goButton = director.GetComponentInChildren<Button>();
+        Debug.Log($"找到 GoButton? {(goButton != null)}  名称: {(goButton != null ? goButton.gameObject.name : "null")}");
         goButton.gameObject.SetActive(false);
         if (goButton != null)
         {
             goButton.onClick.AddListener(AcceptChallenge);
         }
 
+
         next = m_uiObject.transform.Find("Next")?.gameObject;
         nextInf = next.GetComponentInChildren<Button>();
+        Debug.Log($"找到 Next? {(next != null)}");
+        Debug.Log($"找到 NextInf Button? {(nextInf != null)}  名称: {(nextInf != null ? nextInf.gameObject.name : "null")}");
         nextInf.gameObject.SetActive(false);
         if (nextInf != null)
-        {
+        {   
             nextInf.onClick.AddListener(IntroduceFood);
         }
 
-        foreach (var button in buttons)
-        {
-            if (button.name == "Easy")
+            foreach (var button in buttons)
             {
-                // Add the button click event
-                button.onClick.AddListener(Easymode);
+                if (button.name == "Easy")
+                {
+                    // Add the button click event
+                    button.onClick.AddListener(Easymode);
+                }
+                if (button.name == "Normal")
+                {
+                    // Add the button click event
+                    button.onClick.AddListener(Normalmode);
+                }
+                if (button.name == "Hard")
+                {
+                    // Add the button click event
+                    button.onClick.AddListener(Hardmode);
+                }
             }
-            if (button.name == "Normal")
-            {
-                // Add the button click event
-                button.onClick.AddListener(Normalmode);
-            }
-            if (button.name == "Hard")
-            {
-                // Add the button click event
-                button.onClick.AddListener(Hardmode);
-            }
-        }
     }
 
     // Update is called once per frame
@@ -117,6 +122,7 @@ public class ChallengeAccepting : MonoBehaviour
 
     private void IntroducePlace()
     {
+        Debug.Log("Introduce Place");
         nextInf.gameObject.SetActive(true);
         string name = animalInf.AnimalName;
         string habitat = $"{animalInf.AnimalHabitat}";
@@ -135,6 +141,7 @@ public class ChallengeAccepting : MonoBehaviour
 
     private void IntroduceFood()
     {
+        Debug.Log("Introduce Food");
         next.SetActive(false);
         goButton.gameObject.SetActive(true);
 

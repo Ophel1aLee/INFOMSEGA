@@ -24,13 +24,29 @@ public class AnimalFinding : MonoBehaviour
             return;
         }
 
+
+        var save = SaveManager.Instance.CurrentSaveData;
+        var correctAnimal = MainManager.Instance.AnimalData[save.CurrentCollectingID];
+        m_currentHabitat = correctAnimal.AnimalHabitat;
+
+        string habitatName = m_currentHabitat.ToString().ToLower();
+
+        var bgTransform = m_uiObject.transform.Find(habitatName);
+        if (bgTransform != null)
+        {
+            bgTransform.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"Background for habitat \"{habitatName}\" not found under Canvas.");
+        }
+        // ————————————
+
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
         var animalButtons = buttons.Where(b => b.name == "Animal").ToArray();
-        var save = SaveManager.Instance.CurrentSaveData;
-        var correctAnimal = MainManager.Instance.AnimalData[save.CurrentCollectingID];
+
         m_correctAnimalID = correctAnimal.AnimalID;
-        m_currentHabitat = correctAnimal.AnimalHabitat;
         if (save.CurrentStatus != null)
         {
             m_animalIDs = save.CurrentStatus;
@@ -48,11 +64,11 @@ public class AnimalFinding : MonoBehaviour
             GenerateAnimals(animalButtons.Length);
         }
 
-        // ��ÿ�� Animal ��ť�󶨶�Ӧ�� animalID����������
+        // 给每个 Animal 按钮绑定对应的 animalID 及文字
         for (int i = 0; i < animalButtons.Length; i++)
         {
             var button = animalButtons[i];
-            int animalID = m_animalIDs[i];  // �ֲ�����������հ�����
+            int animalID = m_animalIDs[i];
             button.onClick.AddListener(() => AnimalFind(animalID));
 
             var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
@@ -61,7 +77,9 @@ public class AnimalFinding : MonoBehaviour
         }
 
         // Start the timer
-        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy ? m_uiObject.GetComponentInChildren<Timer>() : null;
+        m_timer = save.CurrentDifficulty > DifficultyEnum.Easy
+                  ? m_uiObject.GetComponentInChildren<Timer>()
+                  : null;
         if (m_timer != null)
         {
             m_timer.OnTimerStop += (time) =>
@@ -75,7 +93,7 @@ public class AnimalFinding : MonoBehaviour
         {
             Debug.Log("Timer not found in the UI.");
         }
-        
+
         // TODO: Update the UI with the Animal resources
     }
 
@@ -131,7 +149,7 @@ public class AnimalFinding : MonoBehaviour
             (m_animalIDs[i], m_animalIDs[randomIndex]) = (m_animalIDs[randomIndex], m_animalIDs[i]);
         }
 
-        // Save the current annimals
+        // Save the current animals
         MainManager.Instance.SaveCurrentSave(-1, 0, 0, ProgressEnum.AnimalFinding, new List<int>(m_animalIDs));
     }
 }
