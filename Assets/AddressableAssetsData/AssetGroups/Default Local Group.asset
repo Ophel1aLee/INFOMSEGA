@@ -38,6 +38,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38dfc33537dfc433da88ba702e679708
+    m_Address: AnimalFeeding
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3f192b2f60917481193f46abdc9d9067, type: 2}
   m_SchemaSet:
