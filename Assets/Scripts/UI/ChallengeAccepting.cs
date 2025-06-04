@@ -124,25 +124,25 @@ public class ChallengeAccepting : MonoBehaviour
     private void Easymode()
     {
         diffChoose.SetActive(false);
-        SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(1);
+        // SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(1);
         var startTime = MainManager.Instance.GameDifficulties[1];
-        MainManager.Instance.SaveCurrentSave(-1, 0, startTime, ProgressEnum.ChallengeAccepting);
+        MainManager.Instance.SaveCurrentSave(-1, DifficultyEnum.Easy, startTime, ProgressEnum.ChallengeAccepting);
     }
 
     private void Normalmode()
     {
         diffChoose.SetActive(false);
-        SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(2);
+        // SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(2);
         var startTime = MainManager.Instance.GameDifficulties[2];
-        MainManager.Instance.SaveCurrentSave(-1, 0, startTime, ProgressEnum.ChallengeAccepting);
+        MainManager.Instance.SaveCurrentSave(-1, DifficultyEnum.Normal, startTime, ProgressEnum.ChallengeAccepting);
     }
 
     private void Hardmode()
     {
         diffChoose.SetActive(false);
-        SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(3);
+        // SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(3);
         var startTime = MainManager.Instance.GameDifficulties[3];
-        MainManager.Instance.SaveCurrentSave(-1, 0, startTime, ProgressEnum.ChallengeAccepting);
+        MainManager.Instance.SaveCurrentSave(-1, DifficultyEnum.Hard, startTime, ProgressEnum.ChallengeAccepting);
     }
 
     private void IntroducePlace()
