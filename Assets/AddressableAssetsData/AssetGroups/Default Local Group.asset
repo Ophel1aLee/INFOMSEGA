@@ -49,6 +49,66 @@ MonoBehaviour:
     m_SerializedLabels:
     - Animals
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d17afec7b580fe94aa84c3fc3c4ff7ea
+    m_Address: Carnivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55b40372f43bafd44b5efd56de614494
+    m_Address: Folivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 869bf2aa00d16044fa81762e9d69f4be
+    m_Address: Frugivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94a78297c519f46478989b8a5ee87fcc
+    m_Address: Granivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97ef97e2817af91499aa20ec7dfe38a1
+    m_Address: Herbivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 392b12dd6fdb0a04a8cbeb39ab55b096
+    m_Address: Insectivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 291292414eb3c814d9f0dc9e2bd9c011
+    m_Address: Nectarivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68356f70cade0f8419d9a31f70bc13e6
+    m_Address: Omnivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad9f596ea60f29640977ef7be4755d4b
+    m_Address: Piscivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb8d01a3768ab0b48b6c3d16f05ca0de
+    m_Address: Planktivore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1f448e54736d1f42ad4ff44cdfac0cb
+    m_Address: Unknown
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9bcba1a8325c0145aa29ae330453e74
+    m_Address: GreaterKudu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3f192b2f60917481193f46abdc9d9067, type: 2}
   m_SchemaSet:

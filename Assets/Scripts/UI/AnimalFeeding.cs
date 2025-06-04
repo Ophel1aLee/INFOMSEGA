@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class AnimalFeeding : MonoBehaviour
@@ -82,7 +83,7 @@ public class AnimalFeeding : MonoBehaviour
                         var image = siblingImageGO.GetComponent<Image>();
                         if (image != null)
                         {
-                            image.sprite = Resources.Load<Sprite>(thisDiet.ToString());
+                            image.sprite = Addressables.LoadAssetAsync<Sprite>($"{thisDiet}").WaitForCompletion();
                         }
                     }
                 }
