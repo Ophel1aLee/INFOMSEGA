@@ -182,7 +182,7 @@ public class ChallengeAccepting : MonoBehaviour
                 dietConcat = "can float in water and move with the current";
                 break;
             case "Herbivore":
-                dietConcat = "can eat both plants and grass";
+                dietConcat = "is green";
                 break;
         }
 

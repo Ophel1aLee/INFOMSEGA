@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_text
-      value: Now, it's time to choose a food to feed the cutie!
+      value: 'Now, it''s time to feed the cutie by dragging the food to it! '
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_fontAsset
@@ -528,7 +528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_HorizontalAlignment
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_hasFontAssetChanged
