@@ -136,12 +136,23 @@ public class AnimalFeeding : MonoBehaviour
             // Correct diet chosen
             // Stop the timer
             m_timer?.StopTimer();
-            SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
-            SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
-            // Remove the status list
-            MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
-            MainManager.Instance.NextLevel(ProgressEnum.Unknown);
+            // SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
+            // SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
+            // // Remove the status list
+            // MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
+            // MainManager.Instance.NextLevel(ProgressEnum.Unknown);
             // TODO: Show feedback to the player
+            hint?.SetActive(true);
+            hint.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Correct diet chosen!\nCongratulations!";
+            hintButton.onClick.AddListener(() =>
+            {
+                SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
+                SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
+                // Remove the status list
+                MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
+                MainManager.Instance.NextLevel(ProgressEnum.Unknown);
+            });
+            Debug.Log("Correct diet chosen.");
         }
         else
         {
