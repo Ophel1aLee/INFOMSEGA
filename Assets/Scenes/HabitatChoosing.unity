@@ -415,8 +415,8 @@ MonoBehaviour:
   m_text: Art resources are being produced... the UI of the map will be updated later
     soon...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -917,8 +917,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1337,8 +1337,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1565,8 +1565,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1701,8 +1701,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2104,18 +2104,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4042278468521246335, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4042278468521246335, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8238874bc28b342d1ab5c91d2a3190d5, type: 3}
-    - target: {fileID: 4042278468521246335, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_Color.a
-      value: 0.69411767
-      objectReference: {fileID: 0}
     - target: {fileID: 7041297734489542529, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_Name
       value: Director
@@ -2125,28 +2113,16 @@ PrefabInstance:
       value: So where can we possibly find this animal next?
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_fontColor.b
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+    - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+    - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
-      objectReference: {fileID: 0}
-    - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 8358856613215480678, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2219,8 +2195,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2407,10 +2383,6 @@ PrefabInstance:
     - target: {fileID: 5746388992712523713, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_Name
       value: Hint
-      objectReference: {fileID: 0}
-    - target: {fileID: 5746388992712523713, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7520070499811163080, guid: 012b5a59fd4cf4e7b9f2455cfe60c34e, type: 3}
       propertyPath: m_Pivot.x

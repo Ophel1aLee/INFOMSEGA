@@ -43,6 +43,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68bc72f4c5b244ef4be71d9fb4e67190
+    m_Address: Assets/ScriptableObjects/GreaterKudu.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Animals
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3f192b2f60917481193f46abdc9d9067, type: 2}
   m_SchemaSet:

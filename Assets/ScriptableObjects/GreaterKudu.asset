@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12d71173b771f4f7d847ed9f046069cd, type: 3}
-  m_Name: BlueDragon
+  m_Name: GreaterKudu
   m_EditorClassIdentifier: 
-  AnimalID: 1
-  AnimalName: Glaucus atlanticus
-  AnimalDescription: 'Live in Ocean. Eat Jellyfish. '
-  AnimalSpecies: Gastropoda
-  AnimalHabitat: 1
-  AnimalDiet: 4
-  AnimalPicture: bluedragon
+  AnimalID: 2
+  AnimalName: Tragelaphus strepsiceros
+  AnimalDescription: Live in savanna. Eat grass.
+  AnimalSpecies: Mammalia
+  AnimalHabitat: 7
+  AnimalDiet: 2
+  AnimalPicture: greaterkudu

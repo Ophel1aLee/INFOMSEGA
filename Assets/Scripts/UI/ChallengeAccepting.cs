@@ -47,10 +47,29 @@ public class ChallengeAccepting : MonoBehaviour
         int id = saveData.CurrentCollectingID;
         MainManager.Instance.AnimalData.TryGetValue(id, out animalInf);
 
+        // update the image and name of the animal
+        foreach (var button in buttons)
+        {
+            if (button.name == "Accept")
+            {
+                var imageComponent = button.transform.Find("Image").GetComponent<Image>();
+                if (imageComponent != null)
+                {
+                    imageComponent.sprite = Resources.Load<Sprite>(animalInf.AnimalPicture);
+                }
+                var textComponent = button.GetComponentInChildren<TextMeshProUGUI>();
+                if (textComponent != null)
+                {
+                    textComponent.text = animalInf.AnimalName;
+                }
+                Debug.Log($"Animal Name: {animalInf.AnimalName}, Picture: {animalInf.AnimalPicture}");
+            }
+        }
+
         director = m_uiObject.transform.Find("Director")?.gameObject;
-        Debug.Log($"ÕÒµ½ Director? {(director != null)}");
+        Debug.Log($"ï¿½Òµï¿½ Director? {(director != null)}");
         goButton = director.GetComponentInChildren<Button>();
-        Debug.Log($"ÕÒµ½ GoButton? {(goButton != null)}  Ãû³Æ: {(goButton != null ? goButton.gameObject.name : "null")}");
+        Debug.Log($"ï¿½Òµï¿½ GoButton? {(goButton != null)}  ï¿½ï¿½ï¿½ï¿½: {(goButton != null ? goButton.gameObject.name : "null")}");
         goButton.gameObject.SetActive(false);
         if (goButton != null)
         {
@@ -60,8 +79,8 @@ public class ChallengeAccepting : MonoBehaviour
 
         next = m_uiObject.transform.Find("Next")?.gameObject;
         nextInf = next.GetComponentInChildren<Button>();
-        Debug.Log($"ÕÒµ½ Next? {(next != null)}");
-        Debug.Log($"ÕÒµ½ NextInf Button? {(nextInf != null)}  Ãû³Æ: {(nextInf != null ? nextInf.gameObject.name : "null")}");
+        Debug.Log($"ï¿½Òµï¿½ Next? {(next != null)}");
+        Debug.Log($"ï¿½Òµï¿½ NextInf Button? {(nextInf != null)}  ï¿½ï¿½ï¿½ï¿½: {(nextInf != null ? nextInf.gameObject.name : "null")}");
         nextInf.gameObject.SetActive(false);
         if (nextInf != null)
         {   
@@ -106,18 +125,24 @@ public class ChallengeAccepting : MonoBehaviour
     {
         diffChoose.SetActive(false);
         SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(1);
+        var startTime = MainManager.Instance.GameDifficulties[1];
+        MainManager.Instance.SaveCurrentSave(-1, 0, startTime, ProgressEnum.ChallengeAccepting);
     }
 
     private void Normalmode()
     {
         diffChoose.SetActive(false);
         SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(2);
+        var startTime = MainManager.Instance.GameDifficulties[2];
+        MainManager.Instance.SaveCurrentSave(-1, 0, startTime, ProgressEnum.ChallengeAccepting);
     }
 
     private void Hardmode()
     {
         diffChoose.SetActive(false);
         SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(3);
+        var startTime = MainManager.Instance.GameDifficulties[3];
+        MainManager.Instance.SaveCurrentSave(-1, 0, startTime, ProgressEnum.ChallengeAccepting);
     }
 
     private void IntroducePlace()
@@ -132,6 +157,9 @@ public class ChallengeAccepting : MonoBehaviour
         {
             case "Ocean":
                 habitatConcat = "the water is abundant";
+                break;
+            case "Savanna":
+                habitatConcat = "the grass is tall and the trees are sparse";
                 break;
         }
 
@@ -152,6 +180,9 @@ public class ChallengeAccepting : MonoBehaviour
         {
             case "Planktivore":
                 dietConcat = "can float in water and move with the current";
+                break;
+            case "Herbivore":
+                dietConcat = "can eat both plants and grass";
                 break;
         }
 

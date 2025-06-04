@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 145940806}
   - component: {fileID: 145940807}
   m_Layer: 5
-  m_Name: Savanna
+  m_Name: savanna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1107,9 +1107,9 @@ RectTransform:
   m_Children:
   - {fileID: 1897296850}
   - {fileID: 1823156347}
-  - {fileID: 2044796727}
   - {fileID: 145940806}
   - {fileID: 1572399489}
+  - {fileID: 2044796727}
   - {fileID: 1621541307}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1523,7 +1523,7 @@ GameObject:
   - component: {fileID: 1392455589}
   - component: {fileID: 1392455588}
   m_Layer: 5
-  m_Name: GreatKudu
+  m_Name: Animal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2976,8 +2976,8 @@ MonoBehaviour:
     habitat, with many animals in it. You can choose animals to capture here... Please
     imagine this picture :D \nFor now, please click the button."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+  m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3089,23 +3089,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3153,6 +3153,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7861636365665048835, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926162730593394030, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+    - target: {fileID: 8926162730593394030, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
+    - target: {fileID: 8926162730593394030, guid: 43d1e29d7b78ad14da59e1d7060d4f0f, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

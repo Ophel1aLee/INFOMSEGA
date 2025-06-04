@@ -31,19 +31,34 @@ public class AnimalFinding : MonoBehaviour
 
         string habitatName = m_currentHabitat.ToString().ToLower();
 
-        var bgTransform = m_uiObject.transform.Find(habitatName);
-        if (bgTransform != null)
+        // var bgTransform = m_uiObject.transform.Find(habitatName);
+        // if (bgTransform != null)
+        // {
+        //     bgTransform.gameObject.SetActive(true);
+        // }
+        // else
+        // {
+        //     Debug.LogWarning($"Background for habitat \"{habitatName}\" not found under Canvas.");
+        // }
+        // directly find CameraDrag
+        var cameraDrags = m_uiObject.GetComponentsInChildren<CameraDrag>();
+        GameObject bgObject = null;
+        foreach (var cameraDrag in cameraDrags)
         {
-            bgTransform.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning($"Background for habitat \"{habitatName}\" not found under Canvas.");
+            if (cameraDrag.gameObject.name == habitatName)
+            {
+                cameraDrag.gameObject.SetActive(true);
+                bgObject = cameraDrag.gameObject;
+            }
+            else
+            {
+                cameraDrag.gameObject.SetActive(false);
+            }
         }
         // ————————————
 
         // Attach the button click events
-        var buttons = m_uiObject.GetComponentsInChildren<UnityEngine.UI.Button>();
+        var buttons = bgObject.GetComponentsInChildren<UnityEngine.UI.Button>();
         var animalButtons = buttons.Where(b => b.name == "Animal").ToArray();
 
         m_correctAnimalID = correctAnimal.AnimalID;

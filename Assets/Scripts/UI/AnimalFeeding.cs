@@ -36,6 +36,7 @@ public class AnimalFeeding : MonoBehaviour
                 hint.SetActive(false);
             });
         }
+        hint?.SetActive(false);
 
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<Button>();
@@ -62,12 +63,12 @@ public class AnimalFeeding : MonoBehaviour
                 int index = i;
                 DietEnum thisDiet = m_diets[index];
 
-                // ¢Ù ¸ø Button ±¾ÉíÌí¼Ó¿ÉÍÏ×§×é¼þ£¬²¢¸³ÉÏ dietType
+                // ï¿½ï¿½ ï¿½ï¿½ Button ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½×§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dietType
                 var draggableOnBtn = button.gameObject.AddComponent<DraggableFood>();
                 draggableOnBtn.dietType = thisDiet;
 
-                // ¢Ú ¡°Food¡± °´Å¥µÄ¸¸ÎïÌåÏÂÓÐÒ»¸öÃûÎª "Image" µÄÐÖµÜ½Úµã
-                //    Ö±½ÓÔÚ¸¸ÎïÌåÀï²éÕÒÃûÎª "Image" µÄ×Ó GameObject
+                // ï¿½ï¿½ ï¿½ï¿½Foodï¿½ï¿½ ï¿½ï¿½Å¥ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Îª "Image" ï¿½ï¿½ï¿½ÖµÜ½Úµï¿½
+                //    Ö±ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª "Image" ï¿½ï¿½ï¿½ï¿½ GameObject
                 var parent = button.transform.parent;
                 if (parent != null)
                 {
@@ -76,13 +77,20 @@ public class AnimalFeeding : MonoBehaviour
                     {
                         var draggableOnSibling = siblingImageGO.AddComponent<DraggableFood>();
                         draggableOnSibling.dietType = thisDiet;
+
+                        // set the sibling image
+                        var image = siblingImageGO.GetComponent<Image>();
+                        if (image != null)
+                        {
+                            image.sprite = Resources.Load<Sprite>(thisDiet.ToString());
+                        }
                     }
                 }
 
-                // ¢Û Ô­ÓÐµã»÷ÅÐ¶¨£¨µã°´Å¥Ò²ÄÜÎ¹Ê³£©
+                // ï¿½ï¿½ Ô­ï¿½Ðµï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ã°´Å¥Ò²ï¿½ï¿½Î¹Ê³ï¿½ï¿½
                 button.onClick.AddListener(() => FoodChoose(thisDiet));
 
-                // ¢Ü µ÷Õû°´Å¥ÎÄ±¾
+                // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½Ä±ï¿½
                 var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
                 if (text != null)
                 {
@@ -137,7 +145,7 @@ public class AnimalFeeding : MonoBehaviour
         else
         {
             // Incorrect diet chosen
-            hint.SetActive(true);
+            hint?.SetActive(true);
             Debug.Log("Incorrect diet chosen.");
             // TODO: Show feedback to the player
         }

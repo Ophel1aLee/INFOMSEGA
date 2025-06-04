@@ -27,7 +27,7 @@ public class HabitatChoosing : MonoBehaviour
         }
 
         hint = m_uiObject.transform.Find("Hint")?.gameObject;
-        hintButton = hint.GetComponentInChildren<Button>();
+        hintButton = hint?.GetComponentInChildren<Button>();
         if (hintButton != null)
         {
             hintButton.onClick.AddListener(() =>
@@ -35,6 +35,7 @@ public class HabitatChoosing : MonoBehaviour
                 hint.SetActive(false);
             });
         }
+        hint?.SetActive(false);
 
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<Button>();
@@ -106,7 +107,7 @@ public class HabitatChoosing : MonoBehaviour
         else
         {
             // Incorrect habitat chosen
-            hint.SetActive(true);
+            hint?.SetActive(true);
             Debug.Log("Incorrect habitat.");
             // TODO: Show feedback to the player
         }
