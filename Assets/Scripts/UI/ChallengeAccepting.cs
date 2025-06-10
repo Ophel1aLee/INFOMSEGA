@@ -97,11 +97,21 @@ public class ChallengeAccepting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (nextInf.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Space))
+        {
+            // If the next button is active and space is pressed, introduce food
+            IntroduceFood();
+        }
     }
 
     private void SelectAnimal(int index)
     {
+        if (m_currentAnimalData != null)
+        {
+            Debug.Log($"Animal {m_currentAnimalData.AnimalName} already selected");
+            return;
+        }
+
         // Logic to select the animal
         Debug.Log($"Animal {index} selected");
 
@@ -169,7 +179,7 @@ public class ChallengeAccepting : MonoBehaviour
     private void IntroduceFood()
     {
         Debug.Log("Introduce Food");
-        next.SetActive(false);
+        nextInf.gameObject.SetActive(false);
         goButton.gameObject.SetActive(true);
 
         string diet = $"{m_currentAnimalData.AnimalDiet}";
