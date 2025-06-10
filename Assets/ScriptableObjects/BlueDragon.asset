@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueDragon
   m_EditorClassIdentifier: 
   AnimalID: 1
-  AnimalName: Glaucus atlanticus
+  AnimalName: Blue Dragon
   AnimalDescription: 'Live in Ocean. Eat Jellyfish. '
   AnimalSpecies: Gastropoda
   AnimalHabitat: 1
