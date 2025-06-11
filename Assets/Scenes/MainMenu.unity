@@ -1255,8 +1255,8 @@ MonoBehaviour:
   GameDifficulties:
   - 0
   - 0
-  - 300
-  - 180
+  - 120
+  - 60
 --- !u!1 &1407741835
 GameObject:
   m_ObjectHideFlags: 0

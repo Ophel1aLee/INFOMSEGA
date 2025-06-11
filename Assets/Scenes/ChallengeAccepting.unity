@@ -3911,7 +3911,7 @@ PrefabInstance:
     - target: {fileID: 98512855202925193, guid: 6cfffaea06cec3c4583f3ebf3de7decf, type: 3}
       propertyPath: nextScene
       value: 
-      objectReference: {fileID: 1896452246}
+      objectReference: {fileID: 0}
     - target: {fileID: 98512855202925193, guid: 6cfffaea06cec3c4583f3ebf3de7decf, type: 3}
       propertyPath: targetProgress
       value: 2
@@ -4067,7 +4067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Normal mode: There is a 5-minute limit, and after introducing animal clues,
+  m_text: 'Normal mode: There is a 2-minute limit, and after introducing animal clues,
     you cannot check animal clues anymore.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}

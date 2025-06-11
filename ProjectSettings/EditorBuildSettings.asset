@@ -8,5 +8,20 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/HabitatChoosing.unity
+    guid: c85e6fc47bf6241aa9683a92704721f7
+  - enabled: 1
+    path: Assets/Scenes/ChallengeAccepting.unity
+    guid: 5b025afb024764be792fa7855bcbe7a9
+  - enabled: 1
+    path: Assets/Scenes/AnimalInfo.unity
+    guid: 41840904b2e17f64cba70fbaef10e9ed
+  - enabled: 1
+    path: Assets/Scenes/AnimalFinding.unity
+    guid: 4fc92469442824cd58a96d20ac398fb5
+  - enabled: 1
+    path: Assets/Scenes/AnimalFeeding.unity
+    guid: 38dfc33537dfc433da88ba702e679708
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c7f8322f50b4e433fac4f1275be84941, type: 2}

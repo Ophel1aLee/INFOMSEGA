@@ -23,26 +23,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - Animals
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c85e6fc47bf6241aa9683a92704721f7
-    m_Address: HabitatChoosing
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5b025afb024764be792fa7855bcbe7a9
-    m_Address: ChallengeAccepting
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4fc92469442824cd58a96d20ac398fb5
-    m_Address: AnimalFinding
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 38dfc33537dfc433da88ba702e679708
-    m_Address: AnimalFeeding
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 68bc72f4c5b244ef4be71d9fb4e67190
     m_Address: Assets/ScriptableObjects/GreaterKudu.asset
     m_ReadOnly: 0
