@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GreaterKudu
   m_EditorClassIdentifier: 
   AnimalID: 2
-  AnimalName: Tragelaphus strepsiceros
+  AnimalName: Greater Kudu
   AnimalDescription: Live in savanna. Eat grass.
   AnimalSpecies: Mammalia
   AnimalHabitat: 7

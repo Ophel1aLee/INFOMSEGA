@@ -10,11 +10,11 @@ using Unity.VisualScripting;
 public class ChallengeAccepting : MonoBehaviour
 {
     private GameObject m_uiObject;
+    private List<AnimalData> m_currentAnimalDatas;
     private AnimalData m_currentAnimalData;
     private GameObject director;
     private Button goButton;
     public TextMeshProUGUI contentText;
-    private AnimalData animalInf;
     private GameObject next;
     private Button nextInf;
     public GameObject diffChoose;
@@ -29,88 +29,97 @@ public class ChallengeAccepting : MonoBehaviour
             return;
         }
 
-        // Initialize the challenge
-        InitChallenge();
-
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<Button>();
-        foreach (var button in buttons)
-        {
-            if (button.name == "Accept")
-            {
-                // Add the button click event
-                button.onClick.AddListener(IntroducePlace);
-            }
-        }
+        var animalButtons = buttons.ToList().Where(b => b.name == "Accept").ToArray();
 
-        var saveData = SaveManager.Instance.CurrentSaveData;
-        int id = saveData.CurrentCollectingID;
-        MainManager.Instance.AnimalData.TryGetValue(id, out animalInf);
+        // Initialize the challenge
+        InitChallenge(animalButtons.Length);
 
-        // update the image and name of the animal
-        foreach (var button in buttons)
+        for (int i = 0; i < animalButtons.Length; i++)
         {
-            if (button.name == "Accept")
+            var button = animalButtons[i];
+            int index = i;
+            // Add the button click event
+            button.onClick.AddListener(() => SelectAnimal(index));
+
+            var animalInf = m_currentAnimalDatas[index];
+            // update the image and name of the animal
+            var imageComponent = button.transform.Find("Image").GetComponent<Image>();
+            if (imageComponent != null)
             {
-                var imageComponent = button.transform.Find("Image").GetComponent<Image>();
-                if (imageComponent != null)
-                {
-                    imageComponent.sprite = Resources.Load<Sprite>(animalInf.AnimalPicture);
-                }
-                var textComponent = button.GetComponentInChildren<TextMeshProUGUI>();
-                if (textComponent != null)
-                {
-                    textComponent.text = animalInf.AnimalName;
-                }
-                Debug.Log($"Animal Name: {animalInf.AnimalName}, Picture: {animalInf.AnimalPicture}");
+                imageComponent.sprite = Resources.Load<Sprite>(animalInf.AnimalPicture);
             }
+            var textComponent = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (textComponent != null)
+            {
+                textComponent.text = animalInf.AnimalName;
+            }
+            Debug.Log($"Animal Name: {animalInf.AnimalName}, Picture: {animalInf.AnimalPicture}");
         }
 
         director = m_uiObject.transform.Find("Director")?.gameObject;
-        Debug.Log($"�ҵ� Director? {(director != null)}");
         goButton = director.GetComponentInChildren<Button>();
-        Debug.Log($"�ҵ� GoButton? {(goButton != null)}  ����: {(goButton != null ? goButton.gameObject.name : "null")}");
         goButton.gameObject.SetActive(false);
         if (goButton != null)
         {
             goButton.onClick.AddListener(AcceptChallenge);
         }
 
-
         next = m_uiObject.transform.Find("Next")?.gameObject;
         nextInf = next.GetComponentInChildren<Button>();
-        Debug.Log($"�ҵ� Next? {(next != null)}");
-        Debug.Log($"�ҵ� NextInf Button? {(nextInf != null)}  ����: {(nextInf != null ? nextInf.gameObject.name : "null")}");
         nextInf.gameObject.SetActive(false);
         if (nextInf != null)
         {   
             nextInf.onClick.AddListener(IntroduceFood);
         }
 
-            foreach (var button in buttons)
+        foreach (var button in buttons)
+        {
+            if (button.name == "Easy")
             {
-                if (button.name == "Easy")
-                {
-                    // Add the button click event
-                    button.onClick.AddListener(Easymode);
-                }
-                if (button.name == "Normal")
-                {
-                    // Add the button click event
-                    button.onClick.AddListener(Normalmode);
-                }
-                if (button.name == "Hard")
-                {
-                    // Add the button click event
-                    button.onClick.AddListener(Hardmode);
-                }
+                // Add the button click event
+                button.onClick.AddListener(Easymode);
             }
+            if (button.name == "Normal")
+            {
+                // Add the button click event
+                button.onClick.AddListener(Normalmode);
+            }
+            if (button.name == "Hard")
+            {
+                // Add the button click event
+                button.onClick.AddListener(Hardmode);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (nextInf.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Space))
+        {
+            // If the next button is active and space is pressed, introduce food
+            IntroduceFood();
+        }
+    }
+
+    private void SelectAnimal(int index)
+    {
+        if (m_currentAnimalData != null)
+        {
+            Debug.Log($"Animal {m_currentAnimalData.AnimalName} already selected");
+            return;
+        }
+
+        // Logic to select the animal
+        Debug.Log($"Animal {index} selected");
+
+        m_currentAnimalData = m_currentAnimalDatas[index];
+        Debug.Log($"Current Animal: {m_currentAnimalData.AnimalName}");
+        MainManager.Instance.SaveCurrentSave(m_currentAnimalData.AnimalID, 0, 0, ProgressEnum.ChallengeAccepting);
+
+        IntroducePlace();
     }
 
     private void AcceptChallenge()
@@ -149,8 +158,8 @@ public class ChallengeAccepting : MonoBehaviour
     {
         Debug.Log("Introduce Place");
         nextInf.gameObject.SetActive(true);
-        string name = animalInf.AnimalName;
-        string habitat = $"{animalInf.AnimalHabitat}";
+        string name = m_currentAnimalData.AnimalName;
+        string habitat = $"{m_currentAnimalData.AnimalHabitat}";
         string habitatConcat = " ";
 
         switch (habitat)
@@ -170,10 +179,10 @@ public class ChallengeAccepting : MonoBehaviour
     private void IntroduceFood()
     {
         Debug.Log("Introduce Food");
-        next.SetActive(false);
+        nextInf.gameObject.SetActive(false);
         goButton.gameObject.SetActive(true);
 
-        string diet = $"{animalInf.AnimalDiet}";
+        string diet = $"{m_currentAnimalData.AnimalDiet}";
         string dietConcat = " ";
 
         switch (diet)
@@ -190,29 +199,23 @@ public class ChallengeAccepting : MonoBehaviour
         contentText.text = dietDescription;
     }
 
-    private void InitChallenge()
+    private void InitChallenge(int number)
     {
         // Logic to show the challenge
         Debug.Log("Challenge Initialized");
 
         // remove hard difficulty animals
         var save = SaveManager.Instance.CurrentSaveData;
-        var availableAnimals = MainManager.Instance.AnimalDataList.Where(a => save.GetAnimalDifficulty(a.AnimalID) != DifficultyEnum.Hard).ToList();
-        bool isAllFinished = availableAnimals.Count == 0;
-        var count = isAllFinished ? MainManager.Instance.AnimalDataList.Count : availableAnimals.Count;
-        var randomIndex = UnityEngine.Random.Range(0, count);
-        m_currentAnimalData = isAllFinished ? MainManager.Instance.AnimalDataList[randomIndex] : availableAnimals[randomIndex];
+        var availableAnimals = MainManager.Instance.AnimalDataList.ToList().Where(a => save.GetAnimalDifficulty(a.AnimalID) != DifficultyEnum.Hard).ToList();
 
-        var currentDifficulty = SaveManager.Instance.CurrentSaveData.GetAnimalDifficulty(m_currentAnimalData.AnimalID);
-        var difficulty = currentDifficulty == DifficultyEnum.Unknown ? DifficultyEnum.Easy :
-                        currentDifficulty == DifficultyEnum.Hard ? currentDifficulty : currentDifficulty + 1;
-
-        // timer time
-        var startTime = MainManager.Instance.GameDifficulties[(int)difficulty];
-        
-        Debug.Log($"Current Animal: {m_currentAnimalData.AnimalName}, Difficulty: {difficulty}");
-        MainManager.Instance.SaveCurrentSave(m_currentAnimalData.AnimalID, difficulty, startTime, ProgressEnum.ChallengeAccepting);
-
+        var animalPool = availableAnimals.Count >= number ? availableAnimals : MainManager.Instance.AnimalDataList.ToList();
+        for (int i = 0; i < number; i++)
+        {
+            var randomIndex = UnityEngine.Random.Range(0, animalPool.Count);
+            m_currentAnimalDatas ??= new List<AnimalData>();
+            m_currentAnimalDatas.Add(animalPool[randomIndex]);
+            animalPool.RemoveAt(randomIndex);
+        }
         // TODO: Update the UI with the challenge details
     }
 }
