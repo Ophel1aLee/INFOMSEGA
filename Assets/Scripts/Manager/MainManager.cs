@@ -15,6 +15,7 @@ public class MainManager : Singleton<MainManager>
     public List<float> GameDifficulties = new List<float> { 0.0f, 0.0f, 300.0f, 180.0f }; // in seconds
 
     private GameObject m_mainMenu;
+    private SceneLoader m_sceneLoader;
     private List<AnimalData> m_animalDataList;
     public List<AnimalData> AnimalDataList
     {
@@ -32,6 +33,13 @@ public class MainManager : Singleton<MainManager>
         if (m_mainMenu == null)
         {
             Debug.LogError("Main Menu not found");
+            return;
+        }
+
+        m_sceneLoader = FindObjectOfType<SceneLoader>();
+        if (m_sceneLoader == null)
+        {
+            Debug.LogError("Scene Loader not found");
             return;
         }
 
@@ -77,6 +85,30 @@ public class MainManager : Singleton<MainManager>
         }
     }
 
+    private IEnumerator LoadSceneWithTransition(string sceneName)
+    {
+        m_sceneLoader.FadeIn();
+        yield return new WaitForSeconds(1f);
+
+        var operation = Addressables.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        yield return operation;
+
+        if (operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+        {
+            Debug.Log($"{sceneName} Scene Loaded");
+            m_sceneLoader = FindObjectOfType<SceneLoader>();
+            if (m_sceneLoader != null)
+            {
+                m_sceneLoader.FadeOut();
+            }
+            OnSceneLoad?.Invoke();
+        }
+        else
+        {
+            Debug.LogError($"Failed to load Scene {sceneName}");
+        }
+    }
+
     public void Play()
     {
         Debug.Log("Game Start");
@@ -96,19 +128,7 @@ public class MainManager : Singleton<MainManager>
         // Load the game scene according to the game save
         var data = saveMgr.CurrentSaveData.Progress;
         var sceneName = Enum.GetName(typeof(ProgressEnum), data);
-        Addressables.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (operation) =>
-        {
-            if (operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log($"{sceneName} Scene Loaded");
-                LoadCurrentSave();
-                OnSceneLoad?.Invoke();
-            }
-            else
-            {
-                Debug.LogError($"Failed to load Scene {sceneName}");
-            }
-        };
+        StartCoroutine(LoadSceneWithTransition(sceneName));
     }
 
     public void NewPlay()
@@ -133,19 +153,7 @@ public class MainManager : Singleton<MainManager>
         // Load the game scene according to the game save
         var data = saveMgr.CurrentSaveData.Progress;
         var sceneName = Enum.GetName(typeof(ProgressEnum), data);
-        Addressables.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (operation) =>
-        {
-            if (operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log($"{sceneName} Scene Loaded");
-                // LoadCurrentSave();    no need to load cuz it's a new game
-                OnSceneLoad?.Invoke();
-            }
-            else
-            {
-                Debug.LogError($"Failed to load Scene {sceneName}");
-            }
-        };
+        StartCoroutine(LoadSceneWithTransition(sceneName));
     }
 
     private void ResetProgress()
@@ -202,21 +210,7 @@ public class MainManager : Singleton<MainManager>
         // Load the next level data
         if (progress == ProgressEnum.Unknown)
         {
-            Addressables.LoadSceneAsync("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (operation) =>
-            {
-                if (operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
-                {
-                    Debug.Log("Main Menu Scene Loaded");
-                    OnSceneLoad?.Invoke();
-
-                    // Initial data
-                    saveMgr.CurrentSaveData.Progress = ProgressEnum.ChallengeAccepting;
-                }
-                else
-                {
-                    Debug.LogError("Failed to load Main Menu Scene");
-                }
-            };
+            StartCoroutine(LoadSceneWithTransition("MainMenu"));
             return;
         }
 
@@ -225,19 +219,6 @@ public class MainManager : Singleton<MainManager>
         saveMgr.CurrentSaveData.Progress = progress;
         
         // Load the game scene according to the game save
-        var data = saveMgr.CurrentSaveData.Progress;
-        Addressables.LoadSceneAsync(progressName, UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (operation) =>
-        {
-            if (operation.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log($"{progressName} Scene Loaded");
-                // LoadCurrentSave();    no need to load cuz it's a new scene
-                OnSceneLoad?.Invoke();
-            }
-            else
-            {
-                Debug.LogError($"Failed to load Scene {progressName}");
-            }
-        };
+        StartCoroutine(LoadSceneWithTransition(progressName));
     }
 }

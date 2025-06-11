@@ -12,6 +12,7 @@ public class HabitatChoosing : MonoBehaviour
     private HabitatEnum m_correctHabitat;
     private Button hintButton;
     private GameObject hint;
+    private SceneLoader m_sceneLoader;
 
     private Timer m_timer;
     private float m_timerTime = 0.0f;
@@ -23,6 +24,13 @@ public class HabitatChoosing : MonoBehaviour
         if (m_uiObject == null)
         {
             Debug.LogError("UI not found.");
+            return;
+        }
+
+        m_sceneLoader = FindObjectOfType<SceneLoader>();
+        if (m_sceneLoader == null)
+        {
+            Debug.LogError("Scene Loader not found");
             return;
         }
 
@@ -62,7 +70,6 @@ public class HabitatChoosing : MonoBehaviour
             {
                 text.text = Enum.GetName(typeof(HabitatEnum), m_habitats[index]);
             }
-
         }
 
         // Start the timer
@@ -101,6 +108,14 @@ public class HabitatChoosing : MonoBehaviour
             m_timer?.StopTimer();
             // Remove the status list
             MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.AnimalFinding);
+            // Set the correct button as the next scene button
+            var button = m_uiObject.GetComponentsInChildren<Button>()
+                .Where(b => b.name == "Habitat")
+                .FirstOrDefault(b => b.GetComponentInChildren<TMPro.TextMeshProUGUI>()?.text == Enum.GetName(typeof(HabitatEnum), habitat));
+            if (button != null)
+            {
+                m_sceneLoader.SetNextSceneButton(button);
+            }
             MainManager.Instance.NextLevel(ProgressEnum.AnimalFinding);
             // TODO: Show feedback to the player
         }

@@ -11,6 +11,7 @@ public class AnimalFinding : MonoBehaviour
     private List<int> m_animalIDs = new List<int>();
     private int m_correctAnimalID;
     private HabitatEnum m_currentHabitat;
+    private SceneLoader m_sceneLoader;
 
     private Timer m_timer;
     private float m_timerTime = 0.0f;
@@ -28,6 +29,13 @@ public class AnimalFinding : MonoBehaviour
         if (m_uiObject == null)
         {
             Debug.LogError("UI not found.");
+            return;
+        }
+
+        m_sceneLoader = FindObjectOfType<SceneLoader>();
+        if (m_sceneLoader == null)
+        {
+            Debug.LogError("Scene Loader not found");
             return;
         }
 
@@ -163,6 +171,26 @@ public class AnimalFinding : MonoBehaviour
             m_timer?.StopTimer();
             // Remove the status list
             MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.AnimalFeeding);
+            // Set the correct button as the next scene button
+            var buttons = m_uiObject.GetComponentsInChildren<Button>(true); // true to include inactive buttons
+            var correctButton = buttons
+                .Where(b => b.name == "Animal")
+                .FirstOrDefault(b => {
+                    var clickHandlers = b.onClick.GetPersistentEventCount();
+                    for (int i = 0; i < clickHandlers; i++)
+                    {
+                        var methodName = b.onClick.GetPersistentMethodName(i);
+                        if (methodName == "AnimalFind")
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+            if (correctButton != null)
+            {
+                m_sceneLoader.SetNextSceneButton(correctButton);
+            }
             MainManager.Instance.NextLevel(ProgressEnum.AnimalFeeding);
             // TODO: Show feedback to the player
         }
