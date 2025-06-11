@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 9122904187177738016}
   - component: {fileID: 7580830766189858495}
   m_Layer: 5
-  m_Name: Hint 1
+  m_Name: CorrectHint
   m_TagString: Hint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

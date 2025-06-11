@@ -12,8 +12,13 @@ public class AnimalFeeding : MonoBehaviour
     private List<DietEnum> m_diets = new List<DietEnum>();
     private DietEnum m_correctDiet;
     private int m_currentAnimalID;
-    private Button hintButton;
+
     private GameObject hint;
+    private Button hintButton;
+
+    // Added: GameObject and button for correct feeding hint
+    private GameObject correctHint;
+    private Button correctHintButton;
 
     private Timer m_timer;
     private float m_timerTime = 0.0f;
@@ -38,6 +43,22 @@ public class AnimalFeeding : MonoBehaviour
             });
         }
         hint?.SetActive(false);
+
+        // Added: Initialize correctHint
+        correctHint = m_uiObject.transform.Find("CorrectHint")?.gameObject;
+        correctHintButton = correctHint?.GetComponentInChildren<Button>();
+        if (correctHintButton != null)
+        {
+            correctHintButton.onClick.AddListener(() =>
+            {
+                correctHint.SetActive(false);
+                SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
+                SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
+                MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
+                MainManager.Instance.NextLevel(ProgressEnum.Unknown);
+            });
+        }
+        correctHint?.SetActive(false);
 
         // Attach the button click events
         var buttons = m_uiObject.GetComponentsInChildren<Button>();
@@ -64,12 +85,10 @@ public class AnimalFeeding : MonoBehaviour
                 int index = i;
                 DietEnum thisDiet = m_diets[index];
 
-                // �� �� Button �������ӿ���ק����������� dietType
                 var draggableOnBtn = button.gameObject.AddComponent<DraggableFood>();
                 draggableOnBtn.dietType = thisDiet;
 
-                // �� ��Food�� ��ť�ĸ���������һ����Ϊ "Image" ���ֵܽڵ�
-                //    ֱ���ڸ������������Ϊ "Image" ���� GameObject
+
                 var parent = button.transform.parent;
                 if (parent != null)
                 {
@@ -88,10 +107,9 @@ public class AnimalFeeding : MonoBehaviour
                     }
                 }
 
-                // �� ԭ�е���ж����㰴ťҲ��ιʳ��
+
                 button.onClick.AddListener(() => FoodChoose(thisDiet));
 
-                // �� ������ť�ı�
                 var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
                 if (text != null)
                 {
@@ -117,8 +135,6 @@ public class AnimalFeeding : MonoBehaviour
         {
             Debug.Log("Timer not found in the UI.");
         }
-
-        // TODO: Update the UI with the Food resources
     }
 
     // Update is called once per frame
@@ -134,32 +150,20 @@ public class AnimalFeeding : MonoBehaviour
         if (diet == m_correctDiet)
         {
             // Correct diet chosen
-            // Stop the timer
             m_timer?.StopTimer();
-            // SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
-            // SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
-            // // Remove the status list
-            // MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
-            // MainManager.Instance.NextLevel(ProgressEnum.Unknown);
-            // TODO: Show feedback to the player
-            hint?.SetActive(true);
-            hint.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Correct diet chosen!\nCongratulations!";
-            hintButton.onClick.AddListener(() =>
-            {
-                SaveManager.Instance.CurrentSaveData.CollectionIDs = m_currentAnimalID;
-                SaveManager.Instance.CurrentSaveData.SetAnimalDifficulty(m_currentAnimalID);
-                // Remove the status list
-                MainManager.Instance.SaveCurrentSave(-1, 0, m_timerTime, ProgressEnum.ChallengeAccepting);
-                MainManager.Instance.NextLevel(ProgressEnum.Unknown);
-            });
+
+            // Added: Show correct hint popup
+            correctHint?.SetActive(true);
+
+
             Debug.Log("Correct diet chosen.");
         }
         else
         {
             // Incorrect diet chosen
             hint?.SetActive(true);
+
             Debug.Log("Incorrect diet chosen.");
-            // TODO: Show feedback to the player
         }
     }
 
