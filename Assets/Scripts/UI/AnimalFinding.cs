@@ -18,6 +18,9 @@ public class AnimalFinding : MonoBehaviour
     private GameObject error_hint;
     private Button errorButton;
 
+    private GameObject ani_hint;
+    private Button aniButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,16 @@ public class AnimalFinding : MonoBehaviour
             });
         }
         error_hint?.SetActive(false);
+
+        ani_hint = m_uiObject.transform.Find("DirectorHint")?.gameObject;
+        aniButton = ani_hint?.GetComponentInChildren<Button>();
+        if (aniButton != null)
+        {
+            aniButton.onClick.AddListener(() =>
+            {
+                ani_hint.SetActive(false);
+            });
+        }
 
         var save = SaveManager.Instance.CurrentSaveData;
         var correctAnimal = MainManager.Instance.AnimalData[save.CurrentCollectingID];
