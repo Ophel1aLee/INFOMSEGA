@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 public class MainManager : Singleton<MainManager>
 {
@@ -29,6 +30,19 @@ public class MainManager : Singleton<MainManager>
 
     void Start()
     {
+        OnSceneLoad += AttachButtonEvents;
+        AttachButtonEvents();
+    }
+
+    private void AttachButtonEvents()
+    {
+        // only attach when the main menu is loaded
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            return;
+        }
+
+
         m_mainMenu = GameObject.Find("Canvas");
         if (m_mainMenu == null)
         {
