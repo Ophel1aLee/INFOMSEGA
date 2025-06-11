@@ -231,7 +231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -451, y: 247}
+  m_AnchoredPosition: {x: -633, y: 301}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &83902827
@@ -562,7 +562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 58.4698, y: 235}
+  m_AnchoredPosition: {x: 18, y: 287}
   m_SizeDelta: {x: 1396.0933, y: 114.6537}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &248437920
@@ -585,7 +585,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Before you start playing the game, \nplease select the game difficulty!"
+  m_text: "This game is about learning animals, \nplease try to learn more during
+    this jouney. \nBefore you start playing the game, \nplease select the game difficulty!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
@@ -2499,8 +2500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hard mode: you need to learn as many animals as possible in a limited
-    time based on normal mode.'
+  m_text: 'Hard mode: Based on the normal mode, this mode has a stricter time limit.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
@@ -3102,8 +3102,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Normal mode: you can check animal information at any time without time
-    limit, but after introducing animal clues, you cannot check clues again later.'
+  m_text: 'Normal mode: There is a 5-minute limit, and after introducing animal clues,
+    you cannot check animal clues anymore.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b541f4cd7e98710449e48bce290559b2, type: 2}
   m_sharedMaterial: {fileID: -1976942901756800248, guid: b541f4cd7e98710449e48bce290559b2, type: 2}

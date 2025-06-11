@@ -182,7 +182,7 @@ public class ChallengeAccepting : MonoBehaviour
                 dietConcat = "can float in water and move with the current";
                 break;
             case "Herbivore":
-                dietConcat = "is green";
+                dietConcat = "is a green, leafy plant commonly found in meadows and lawns";
                 break;
         }
 

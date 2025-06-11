@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimalFinding : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class AnimalFinding : MonoBehaviour
     private Timer m_timer;
     private float m_timerTime = 0.0f;
 
+    private GameObject error_hint;
+    private Button errorButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,16 @@ public class AnimalFinding : MonoBehaviour
             return;
         }
 
+        error_hint = m_uiObject.transform.Find("ErrorHint")?.gameObject;
+        errorButton = error_hint?.GetComponentInChildren<Button>();
+        if (errorButton != null)
+        {
+            errorButton.onClick.AddListener(() =>
+            {
+                error_hint.SetActive(false);
+            });
+        }
+        error_hint?.SetActive(false);
 
         var save = SaveManager.Instance.CurrentSaveData;
         var correctAnimal = MainManager.Instance.AnimalData[save.CurrentCollectingID];
@@ -60,6 +74,12 @@ public class AnimalFinding : MonoBehaviour
         // Attach the button click events
         var buttons = bgObject.GetComponentsInChildren<UnityEngine.UI.Button>();
         var animalButtons = buttons.Where(b => b.name == "Animal").ToArray();
+        var incorrectAnimalButtons = buttons.Where(b => b.gameObject.tag == "Wrong").ToArray();
+
+        foreach (var button in incorrectAnimalButtons)
+        {
+            button.onClick.AddListener(() => WrongHint());
+        }
 
         m_correctAnimalID = correctAnimal.AnimalID;
         if (save.CurrentStatus != null)
@@ -85,6 +105,7 @@ public class AnimalFinding : MonoBehaviour
             var button = animalButtons[i];
             int animalID = m_animalIDs[i];
             button.onClick.AddListener(() => AnimalFind(animalID));
+            Debug.Log(animalID);
 
             var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             if (text != null)
@@ -136,8 +157,14 @@ public class AnimalFinding : MonoBehaviour
         {
             // Incorrect animal found
             Debug.Log("Incorrect animal.");
+            error_hint?.SetActive(true);
             // TODO: Show feedback to the player
         }
+    }
+
+    private void WrongHint()
+    {
+        error_hint?.SetActive(true);
     }
 
     private void GenerateAnimals(int count)
