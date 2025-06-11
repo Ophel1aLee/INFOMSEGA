@@ -382,7 +382,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_text
-      value: 'Now, it''s time to feed the cutie by dragging the food to it! '
+      value: "Time to feed the cutie!\nTry clicking or dragging the right food over.\nDon\u2019t
+        worry \u2014 it won\u2019t bite!"
       objectReference: {fileID: 0}
     - target: {fileID: 7471889672713016780, guid: dd29aedca48db46de8c64b1e1053a8bb, type: 3}
       propertyPath: m_fontAsset
